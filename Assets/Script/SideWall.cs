@@ -6,16 +6,6 @@ public class SideWall : MonoBehaviour
 {
     public PlayerController player;
     public GameManager gameManager;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter2D(Collider2D col)
     {

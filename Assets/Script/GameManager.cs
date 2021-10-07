@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public BallController ball;
     private Rigidbody2D rbBall;
     private CircleCollider2D collBall;
+    public Trajectory trajectory;
 
     public int maxScore;
 
@@ -82,14 +83,28 @@ public class GameManager : MonoBehaviour
             float impulsePlayer2Y = player2.LastContanctPoint.tangentImpulse;
 
             // Debug Text
-            string debugText = 
-                "Ball Mass" + ballMass + "\n" + 
+            string debugText =
+                "Ball Mass" + ballMass + "\n" +
                 "Ball Velocity" + ballVelocity + "\n" +
                 "Ball Speed" + ballSpeed + "\n" +
                 "Ball Momentum" + ballMomentum + "\n" +
                 "Ball Fraction" + ballFraction + "\n" +
-                "Last Implse from Player 1 = (" +impulsePlayer1X + "," + impulsePlayer1Y + ")\n" + 
-                "Last Implse from Player 2 = (" +impulsePlayer2X + "," + impulsePlayer2Y + ")\n" +
+                "Last Implse from Player 1 = (" + impulsePlayer1X + "," + impulsePlayer1Y + ")\n" +
+                "Last Implse from Player 2 = (" + impulsePlayer2X + "," + impulsePlayer2Y + ")\n";
+
+            // Tampilkan debug window
+            GUIStyle guiStyle = new GUIStyle(GUI.skin.textArea);
+            guiStyle.alignment = TextAnchor.UpperCenter;
+            GUI.TextArea(new Rect(Screen.width / 2 - 200, Screen.height - 200, 400, 110), debugText, guiStyle);
+            trajectory.enabled = !trajectory.enabled;
+
+            // Kembalikan warna lama GUI
+            GUI.backgroundColor = oldColor;
         }
+                    // Toggle nilai debug window ketika pemain mengeklik tombol ini.
+            if (GUI.Button(new Rect(Screen.width / 2 - 60, Screen.height - 73, 120, 53), "TOGGLE\nDEBUG INFO"))
+            {
+                isDebugWindowShown = !isDebugWindowShown;
+            }
     }
 }

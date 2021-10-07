@@ -6,6 +6,9 @@ public class BallController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
+    // Titik asal lintasan bola saat ini
+    private Vector2 trajeroctryOrigin;
+
     public float xIntialForce;
     public float yIntialForce;
     // Start is called before the first frame update
@@ -14,6 +17,8 @@ public class BallController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         RestartGame();
+        trajeroctryOrigin = transform.position;
+
     }
 
     private void ResetBall()
@@ -39,10 +44,19 @@ public class BallController : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        trajeroctryOrigin = transform.position;
+    }
+
     private void RestartGame()
     {
         ResetBall();
 
         Invoke("PushBall", 2);
+    }
+    public Vector2 TrajectoryOrigin
+    {
+        get { return trajeroctryOrigin; }
     }
 }

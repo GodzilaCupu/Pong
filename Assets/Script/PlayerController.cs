@@ -23,13 +23,9 @@ public class PlayerController : MonoBehaviour
     //Titik tumbukan terakhir dengan bola, untuk menampilkan variabel-variabel fisika terkait tumbukan tersebut
     private ContactPoint2D lastContactPoint;
 
-    // Titik asal lintasan bola saat ini
-    private Vector2 trajeroctryOrigin;
-
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
-        trajeroctryOrigin = transform.position;
     }
 
     // Update is called once per frame
@@ -94,8 +90,4 @@ public class PlayerController : MonoBehaviour
         get { return lastContactPoint;  }
     }
     
-    public Vector2 TrajectoryOrigin
-    {
-        get { return trajeroctryOrigin; }
-    }
 }
