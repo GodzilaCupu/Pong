@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public int maxScore;
 
+    private bool isDebugWindowShown = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void OnGUI()
     {
+        // posisi Score
         GUI.Label(new Rect(Screen.width / 2 - 150 - 12, 20, 100, 100), "" + player1.Score);
         GUI.Label(new Rect(Screen.width / 2 + 150 + 12, 20, 100, 100), "" + player2.Score);
 
@@ -54,6 +57,39 @@ public class GameManager : MonoBehaviour
             GUI.Label(new Rect(Screen.width / 2 + 30, Screen.height / 2 - 10, 2000, 1000), "PLAYER TWO WINS");
 
             ball.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
+        }
+
+
+        if (isDebugWindowShown)
+        {
+            //Simpan Warna
+            Color oldColor = GUI.backgroundColor;
+            GUI.backgroundColor = Color.red; // warna baru
+
+            // Simpan Variable yang akan di tamplikan 
+            float ballMass = rbBall.mass;
+            Vector2 ballVelocity = rbBall.velocity;
+            float ballSpeed = rbBall.velocity.magnitude;
+            Vector2 ballMomentum = ballMass * ballVelocity;
+
+            float ballFraction = collBall.friction;
+
+
+            float impulsePlayer1X = player1.LastContanctPoint.normalImpulse;
+            float impulsePlayer1Y = player1.LastContanctPoint.tangentImpulse;
+
+            float impulsePlayer2X = player2.LastContanctPoint.normalImpulse;
+            float impulsePlayer2Y = player2.LastContanctPoint.tangentImpulse;
+
+            // Debug Text
+            string debugText = 
+                "Ball Mass" + ballMass + "\n" + 
+                "Ball Velocity" + ballVelocity + "\n" +
+                "Ball Speed" + ballSpeed + "\n" +
+                "Ball Momentum" + ballMomentum + "\n" +
+                "Ball Fraction" + ballFraction + "\n" +
+                "Last Implse from Player 1 = (" +impulsePlayer1X + "," + impulsePlayer1Y + ")\n" + 
+                "Last Implse from Player 2 = (" +impulsePlayer2X + "," + impulsePlayer2Y + ")\n" +
         }
     }
 }

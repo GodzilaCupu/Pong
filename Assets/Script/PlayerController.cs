@@ -20,11 +20,16 @@ public class PlayerController : MonoBehaviour
     //skor
     private int score;
 
+    //Titik tumbukan terakhir dengan bola, untuk menampilkan variabel-variabel fisika terkait tumbukan tersebut
     private ContactPoint2D lastContactPoint;
+
+    // Titik asal lintasan bola saat ini
+    private Vector2 trajeroctryOrigin;
 
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
+        trajeroctryOrigin = transform.position;
     }
 
     // Update is called once per frame
@@ -73,7 +78,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        
+        // Ketika terjadi tumbukan dengan bola, rekam titik kontaknya.
+        if (coll.gameObject.name.Equals("Ball"))
+            lastContactPoint = coll.GetContact(0); 
     }
 
 
@@ -82,8 +89,13 @@ public class PlayerController : MonoBehaviour
         get { return score;  }
     }
 
-    public ContactPoint2D lastContanctPoint
+    public ContactPoint2D LastContanctPoint
     {
         get { return lastContactPoint;  }
+    }
+    
+    public Vector2 TrajectoryOrigin
+    {
+        get { return trajeroctryOrigin; }
     }
 }
